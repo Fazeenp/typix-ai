@@ -1,0 +1,14 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Outfit:wght@100..900&family=Sora:wght@100..800&display=swap');
+*{
+    font-family: Outfit;
+}
+@import "tailwindcss";
+/* In index.css */
+.bg-texture::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: url('/noise.png'); /* use a semi-transparent dark noise */
+  opacity: 0.04;
+  pointer-events: none;
+}
