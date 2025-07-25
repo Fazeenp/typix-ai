@@ -1,5 +1,8 @@
 # Typix – AI-Powered Text-to-Image Generator
 
+### Live Demo: [Click here to view the live site](https://typix-ai.onrender.com/)
+
+
 **Typix** is a full-stack SaaS application that transforms text prompts into AI-generated images using the ClipDrop API. It features real-time payments, secure authentication, and persistent user credit tracking.
 
 ## Key Features
