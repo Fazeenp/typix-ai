@@ -4,6 +4,8 @@ import Home from './pages/Home'
 import Result from './pages/Result'
 import BuyCredit from './pages/BuyCredit'
 import { Route, Routes } from 'react-router-dom'
+import { ToastContainer } from 'react-toastify';
+  
 import Navbar from './components/Navbar'
 import Footer from './components/Footer' // <- Make sure it's imported
 import Login from './components/Login'
@@ -16,8 +18,9 @@ const App = () => {
       
       <div className="absolute top-[-100px] left-1/3 w-[300px] h-[300px] bg-purple-500 opacity-20 blur-3xl rounded-full z-0"></div>
       <div className="absolute bottom-[-100px] right-1/4 w-[250px] h-[250px] bg-blue-500 opacity-10 blur-2xl rounded-full z-0"></div>
-
+      <ToastContainer position='bottom-right'/>
       <div className="relative z-10 px-4 sm:px-10 md:px-14 lg:px-28">
+        
         <Navbar />
       </div>
       {showLogin && <Login/>}

@@ -1,7 +1,9 @@
 import React, { useContext, useState } from 'react'
 import { X, Mail, Lock, User } from 'lucide-react'
 import { AppContext } from '../context/AppContext'
-import { motion, AnimatePresence } from 'framer-motion'
+import { motion, AnimatePresence } from 'framer-motion';
+import axios from 'axios'
+import { toast } from 'react-toastify';
 
 const backdrop = {
   hidden: { opacity: 0 },
@@ -17,7 +19,12 @@ const modal = {
 
 const Login = () => {
   const [isSignup, setIsSignup] = useState(false)
-  const { setShowLogin } = useContext(AppContext)
+  const { setShowLogin, backendUrl, setToken, setUser } = useContext(AppContext)
+
+  const [name,setName] = useState('')
+  const [password,setPassword] = useState('')
+  const [email,setEmail] = useState('')
+
 
   const [formData, setFormData] = useState({
     email: '',
@@ -25,18 +32,35 @@ const Login = () => {
     name: '',
   })
 
-  const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value })
-  }
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async(e) => {
     e.preventDefault()
-    if (isSignup) {
-      console.log('Signup data:', formData)
-    } else {
-      console.log('Login data:', formData)
+    try {
+      if (isSignup) {
+         const {data} = await axios.post(backendUrl+'/api/user/register',{name,email,password})
+        if(data.success){
+          setToken(data.token)
+          setUser(data.user)
+          localStorage.setItem('token',data.token)
+          setShowLogin(false)
+        }else{
+          toast.error(data.message)
+        }
+      } else {
+        const {data} = await axios.post(backendUrl+'/api/user/login',{email,password})
+        if(data.success){
+          setToken(data.token)
+          setUser(data.user)
+          localStorage.setItem('token',data.token)
+          setShowLogin(false)
+        }else{
+          toast.error(data.message)
+        }
+      }
+      
+    } catch (error) {
+      toast.error(error.message)
     }
-    setShowLogin(false)
   }
 
   return (
@@ -83,8 +107,8 @@ const Login = () => {
                   name="name"
                   placeholder="Your Name"
                   required
-                  value={formData.name}
-                  onChange={handleChange}
+                  value={name}
+                  onChange={e=>setName(e.target.value)}
                   className="w-full py-2.5 pl-10 pr-4 bg-white/5 border border-white/10 text-white rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500"
                 />
               </div>
@@ -96,8 +120,8 @@ const Login = () => {
                 name="email"
                 placeholder="Email"
                 required
-                value={formData.email}
-                onChange={handleChange}
+                 value={email}
+                  onChange={e=>setEmail(e.target.value)}
                 className="w-full py-2.5 pl-10 pr-4 bg-white/5 border border-white/10 text-white rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
               />
             </div>
@@ -108,8 +132,8 @@ const Login = () => {
                 name="password"
                 placeholder="Password"
                 required
-                value={formData.password}
-                onChange={handleChange}
+                value={password}
+                onChange={e=>setPassword(e.target.value)}
                 className="w-full py-2.5 pl-10 pr-4 bg-white/5 border border-white/10 text-white rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
               />
             </div>

@@ -62,19 +62,24 @@ export const testimonials = [
 ]
 export const plans = [
   {
-    credits: 20,
-    price: '$5',
-    description: 'Ideal for light users or quick tests.',
+    name: 'Basic',
+    credits: 100,
+    description: 'Great for getting started and testing ideas.',
+    price: '$10',
+    popular: false,
   },
   {
-    credits: 100,
-    price: '$19',
-    description: 'Perfect for creators and small projects.',
+    name: 'Pro',
+    credits: 500,
+    description: 'Perfect for creators who need more flexibility.',
+    price: '$50',
     popular: true,
   },
   {
-    credits: 500,
-    price: '$79',
-    description: 'Best value for professionals or agencies.',
+    name: 'Business',
+    credits: '5000',
+    description: 'For professionals needing maximum power and speed.',
+    price: '$250',
+    popular: false,
   },
 ]
